@@ -683,19 +683,18 @@ export default function App() {
         </motion.div>
       </div>
 
-      {/* Birthday Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <BirthdayModal onClose={() => setIsModalOpen(false)} />
-        )}
-      </AnimatePresence>
-
-      {/* Birthday Cake */}
-      <AnimatePresence>
-        {showCake && (
-          <BirthdayCake onClose={() => setShowCake(false)} />
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-}
+      <motion.button
+  onClick={() => setIsModalOpen(true)}
+  className="w-full sm:w-auto px-8 py-4 rounded-full text-white text-base sm:text-lg relative overflow-hidden group touch-manipulation"
+  style={{
+    background: 'linear-gradient(135deg, #FF4D6D 0%, #FF85A1 100%)',
+    boxShadow: '0 8px 24px rgba(255, 77, 109, 0.4)',
+    fontFamily: "'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive",
+    minHeight: '56px'
+  }}
+  whileHover={{ 
+    scale: 1.05,
+    boxShadow: '0 12px 32px rgba(255, 77, 109, 0.5)'
+  }}
+  whileTap={{ scale: 0.98 }}
+>
