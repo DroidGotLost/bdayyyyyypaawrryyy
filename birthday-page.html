@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday - Kawaii Celebration 🎂</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+      overflow-x: hidden;
+      background: #FFF0F3;
+    }
+
+    /* Grid Background Pattern */
+    .grid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(to right, #FFB3C6 1px, transparent 1px),
+        linear-gradient(to bottom, #FFB3C6 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    /* Intro Screen */
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1.5s ease-out, filter 1.5s ease-out;
+    }
+
+    .intro-screen.hidden {
+      opacity: 0;
+      filter: brightness(0);
+      pointer-events: none;
+    }
+
+    .lights-on-btn {
+      padding: 20px 48px;
+      border-radius: 50px;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      font-size: 20px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      animation: glow 2s infinite ease-in-out;
+    }
+
+    .lights-on-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    /* Main Container */
+    .main-content {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      opacity: 0;
+      filter: brightness(0);
+      transition: opacity 1.5s ease-out, filter 1.5s ease-out;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+      filter: brightness(1);
+    }
+
+    /* Bunting */
+    .bunting {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
+      padding: 0 20px;
+    }
+
+    .bunting-flag {
+      width: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-top: 50px solid #FF4D6D;
+      margin: 0 -10px;
+      animation: flag-wave 3s infinite ease-in-out;
+      filter: drop-shadow(0 4px 8px rgba(255, 77, 109, 0.3));
+    }
+
+    .bunting-flag:nth-child(even) {
+      border-top-color: #FF85A1;
+    }
+
+    .bunting-flag:nth-child(3n) {
+      border-top-color: #FFB3C6;
+    }
+
+    @keyframes flag-wave {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(2deg); }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 20px 80px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .content-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+    }
+
+    /* Left Column */
+    .left-column {
+      text-align: center;
+      position: relative;
+      z-index: 20;
+    }
+
+    @media (min-width: 1024px) {
+      .left-column {
+        text-align: left;
+      }
+    }
+
+    /* Headline */
+    .headline {
+      font-family: 'Silkscreen', 'Press Start 2P', monospace;
+      font-size: 3rem;
+      color: #FF4D6D;
+      text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+      -webkit-text-stroke: 2px #000000;
+      paint-order: stroke fill;
+      letter-spacing: 0.05em;
+      filter: drop-shadow(0 6px 12px rgba(255, 77, 109, 0.3));
+      margin-bottom: 20px;
+      line-height: 1.2;
+      animation: drop-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+    }
+
+    @media (min-width: 640px) {
+      .headline { font-size: 4rem; }
+    }
+
+    @media (min-width: 768px) {
+      .headline { font-size: 5rem; }
+    }
+
+    @media (min-width: 1024px) {
+      .headline { font-size: 6rem; }
+    }
+
+    @media (min-width: 1280px) {
+      .headline { font-size: 7rem; }
+    }
+
+    @keyframes drop-in {
+      from {
+        transform: translateY(-300px) rotate(-10deg);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+    }
+
+    /* Date */
+    .date-text {
+      font-size: 1.5rem;
+      color: #FF4D6D;
+      margin-bottom: 30px;
+      animation: fade-in 0.8s ease-out 0.5s both;
+    }
+
+    @media (min-width: 640px) {
+      .date-text { font-size: 1.75rem; }
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Profile Section */
+    .profile-section {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px 0;
+      min-height: 400px;
+    }
+
+    .profile-container {
+      position: relative;
+      animation: rise-up 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
+    }
+
+    @keyframes rise-up {
+      from {
+        transform: translateY(500px) scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .profile-container:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    /* Party Hat */
+    .party-hat {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      animation: hat-drop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both, hat-wiggle 3s infinite ease-in-out 2s;
+      pointer-events: none;
+    }
+
+    @keyframes hat-drop {
+      from {
+        transform: translateX(-50%) translateY(-200px) rotate(-45deg);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(-50%) translateY(0) rotate(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes hat-wiggle {
+      0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+      50% { transform: translateX(-50%) rotate(2deg); }
+    }
+
+    .profile-image {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 4px solid white;
+      object-fit: cover;
+      box-shadow: 0 20px 60px rgba(255, 77, 109, 0.3);
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (min-width: 640px) {
+      .profile-image {
+        border-width: 8px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .profile-image {
+        width: 320px;
+        height: 320px;
+      }
+    }
+
+    /* Buttons */
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    @media (min-width: 640px) {
+      .button-group {
+        flex-direction: row;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .button-group {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .button-group {
+        justify-content: center;
+      }
+    }
+
+    .cta-button {
+      padding: 16px 32px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #FF4D6D 0%, #FF85A1 100%);
+      color: white;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 77, 109, 0.4);
+      font-family: 'Comic Sans MS', cursive;
+      min-height: 56px;
+      transition: all 0.3s ease;
+      animation: fade-in 0.8s ease-out 1s both;
+    }
+
+    @media (min-width: 640px) {
+      .cta-button {
+        font-size: 1.125rem;
+      }
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(255, 77, 109, 0.5);
+    }
+
+    .cta-button:active {
+      transform: scale(0.98);
+    }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      animation: float 4s infinite ease-in-out;
+    }
+
+    .balloon-body {
+      width: 60px;
+      height: 75px;
+      background: #FF4D6D;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: relative;
+      box-shadow: inset -10px -10px 0 rgba(0, 0, 0, 0.07);
+      filter: drop-shadow(0 8px 20px rgba(255, 77, 109, 0.4));
+    }
+
+    .balloon-string {
+      width: 1px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.2);
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform-origin: top;
+      animation: string-sway 2s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+    }
+
+    @keyframes string-sway {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    /* Hide balloons on mobile - show on desktop */
+    .desktop-only {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .desktop-only {
+        display: block;
+      }
+    }
+
+    /* Mobile balloons */
+    .mobile-balloons {
+      display: block;
+    }
+
+    @media (min-width: 1024px) {
+      .mobile-balloons {
+        display: none;
+      }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      animation: sparkle-twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes sparkle-twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+    }
+
+    /* Signature */
+    .signature {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+      color: #D4A5B0;
+      font-size: 0.875rem;
+      letter-spacing: 0.03em;
+      z-index: 50;
+      animation: fade-in 1s ease-out 2s both;
+    }
+
+    @media (min-width: 640px) {
+      .signature {
+        font-size: 1rem;
+        bottom: 32px;
+        right: 32px;
+      }
+    }
+
+    /* Floating Decorations */
+    .emoji-decoration {
+      position: fixed;
+      font-size: 2rem;
+      animation: float-emoji 4s infinite ease-in-out;
+      z-index: 5;
+    }
+
+    @keyframes float-emoji {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(10deg); }
+    }
+
+    .emoji-1 { top: 40%; left: 10%; animation-delay: 0s; }
+    .emoji-2 { top: 20%; right: 10%; animation-delay: 0.5s; }
+    .emoji-3 { bottom: 30%; left: 15%; animation-delay: 1s; }
+    .emoji-4 { bottom: 20%; right: 15%; animation-delay: 1.5s; }
+
+    /* Hide decorative elements on smaller screens */
+    @media (max-width: 767px) {
+      .emoji-decoration,
+      .bunting-flag:nth-child(n+6) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Intro Screen -->
+  <div class="intro-screen" id="introScreen">
+    <button class="lights-on-btn" onclick="turnLightsOn()">Turn lights on</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
+
+    <!-- Bunting -->
+    <div class="bunting">
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+      <div class="bunting-flag"></div>
+    </div>
+
+    <!-- Floating Emoji Decorations -->
+    <div class="emoji-decoration emoji-1">🎂</div>
+    <div class="emoji-decoration emoji-2">🎉</div>
+    <div class="emoji-decoration emoji-3">⭐</div>
+    <div class="emoji-decoration emoji-4">🎁</div>
+
+    <!-- Main Container -->
+    <div class="container">
+      <div class="content-grid">
+        <!-- Left Column -->
+        <div class="left-column">
+          <h1 class="headline">Happy<br>Birthday</h1>
+          <p class="date-text">3 January 2026</p>
+
+          <!-- Profile Image (Mobile) -->
+          <div class="profile-section mobile-balloons">
+            <div class="profile-container">
+              <!-- Party Hat -->
+              <div class="party-hat">
+                <svg width="120" height="100" viewBox="0 0 120 100" fill="none">
+                  <ellipse cx="60" cy="90" rx="45" ry="8" fill="rgba(0, 0, 0, 0.15)"/>
+                  <path d="M 60 10 L 100 80 L 20 80 Z" fill="url(#hatGradient)" stroke="white" stroke-width="3" style="filter: drop-shadow(0 6px 16px rgba(255, 77, 109, 0.4))"/>
+                  <path d="M 45 60 L 60 30 L 75 60" stroke="#FF85A1" stroke-width="4" fill="none" opacity="0.4"/>
+                  <circle cx="50" cy="50" r="4" fill="white" opacity="0.7"/>
+                  <circle cx="70" cy="45" r="4" fill="white" opacity="0.7"/>
+                  <circle cx="60" cy="65" r="3" fill="white" opacity="0.6"/>
+                  <circle cx="60" cy="10" r="10" fill="#FFD700" style="filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4))"/>
+                  <circle cx="60" cy="10" r="6" fill="#FFEB99" opacity="0.8"/>
+                  <ellipse cx="60" cy="80" rx="40" ry="6" fill="#FF4D6D" stroke="white" stroke-width="2"/>
+                  <defs>
+                    <linearGradient id="hatGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#FF4D6D"/>
+                      <stop offset="100%" stop-color="#FF85A1"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              
+              <!-- Profile Image - Replace with actual image URL -->
+              <img src="https://via.placeholder.com/320" alt="Birthday Person" class="profile-image">
+
+              <!-- Mobile Balloons -->
+              <div class="balloon" style="top: -30px; left: 10px;">
+                <div class="balloon-body" style="background: #FF4D6D;"></div>
+                <div class="balloon-string"></div>
+              </div>
+              <div class="balloon" style="top: -50px; right: 10px;">
+                <div class="balloon-body" style="background: #FF85A1;"></div>
+                <div class="balloon-string"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="button-group">
+            <button class="cta-button" onclick="alert('Read the Letter clicked! Add modal here.')">📧 Read the Letter</button>
+            <button class="cta-button" onclick="alert('Bring the Cake clicked! Add cake animation here.')">🎂 Bring the Cake</button>
+          </div>
+        </div>
+
+        <!-- Right Column (Desktop Only) -->
+        <div class="profile-section desktop-only">
+          <div class="profile-container">
+            <!-- Party Hat -->
+            <div class="party-hat">
+              <svg width="120" height="100" viewBox="0 0 120 100" fill="none">
+                <ellipse cx="60" cy="90" rx="45" ry="8" fill="rgba(0, 0, 0, 0.15)"/>
+                <path d="M 60 10 L 100 80 L 20 80 Z" fill="url(#hatGradient2)" stroke="white" stroke-width="3" style="filter: drop-shadow(0 6px 16px rgba(255, 77, 109, 0.4))"/>
+                <path d="M 45 60 L 60 30 L 75 60" stroke="#FF85A1" stroke-width="4" fill="none" opacity="0.4"/>
+                <circle cx="50" cy="50" r="4" fill="white" opacity="0.7"/>
+                <circle cx="70" cy="45" r="4" fill="white" opacity="0.7"/>
+                <circle cx="60" cy="65" r="3" fill="white" opacity="0.6"/>
+                <circle cx="60" cy="10" r="10" fill="#FFD700" style="filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4))"/>
+                <circle cx="60" cy="10" r="6" fill="#FFEB99" opacity="0.8"/>
+                <ellipse cx="60" cy="80" rx="40" ry="6" fill="#FF4D6D" stroke="white" stroke-width="2"/>
+                <defs>
+                  <linearGradient id="hatGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FF4D6D"/>
+                    <stop offset="100%" stop-color="#FF85A1"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <!-- Profile Image - Replace with actual image URL -->
+            <img src="https://via.placeholder.com/320" alt="Birthday Person" class="profile-image">
+
+            <!-- Desktop Balloons -->
+            <div class="balloon" style="top: -50px; left: 30px;">
+              <div class="balloon-body" style="background: #FF4D6D;"></div>
+              <div class="balloon-string"></div>
+            </div>
+            <div class="balloon" style="top: -80px; left: 120px;">
+              <div class="balloon-body" style="background: #FF85A1;"></div>
+              <div class="balloon-string"></div>
+            </div>
+            <div class="balloon" style="top: -60px; right: 90px;">
+              <div class="balloon-body" style="background: #FF4D6D;"></div>
+              <div class="balloon-string"></div>
+            </div>
+            <div class="balloon" style="top: -30px; right: 30px;">
+              <div class="balloon-body" style="background: #FFB3C6;"></div>
+              <div class="balloon-string"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">from nishant, with love ♡</div>
+  </div>
+
+  <script>
+    function turnLightsOn() {
+      const intro = document.getElementById('introScreen');
+      const main = document.getElementById('mainContent');
+      
+      intro.classList.add('hidden');
+      
+      setTimeout(() => {
+        main.classList.add('visible');
+      }, 100);
+    }
+  </script>
+</body>
+</html>
