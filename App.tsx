@@ -9,6 +9,7 @@ import { Balloon } from './components/Balloon';
 import { Sparkle } from './components/Sparkle';
 import { PartyHat } from './components/PartyHat';
 import { FloatingDecoration } from './components/FloatingDecoration';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [lightsOn, setLightsOn] = useState(false);
