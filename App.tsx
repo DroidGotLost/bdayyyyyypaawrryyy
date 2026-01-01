@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import profileImage from 'figma:asset/dea7f9e645c7f7bdfffc3befd74935e5b5e4e714.png';
+import profileImage from './bbbafabf-a3eb-4df8-abad-d85ad6087d50.jpg';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { BirthdayModal } from './components/BirthdayModal';
 import { BirthdayCake } from './components/BirthdayCake';
